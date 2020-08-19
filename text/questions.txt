@@ -1,0 +1,2 @@
+Jarry,Bim,Rjue,Tob
+Paladin,Mage,Rouge
