@@ -65,15 +65,12 @@ def grabFile(fileName):
     elif fileName == "questions":
         #local variable
         #TODO: changeing Delimiters to a comma
-        tempString = ""
-        for line in dialogue:
-            if questionCount == myCount:
-                tempString = dialogue.readline()
-            else:
-                myCount = myCount + 1
+        tempString = dialogue.readlines()
+        currentAnswers = tempString[questionCount]
+        
         #print(tempString)
         #We need to turn the string into a delimited array
-        textArray = tempString.split(",")
+        textArray = currentAnswers.split(",")
 
 
     dialogue.close()
@@ -107,12 +104,27 @@ def createAnswers(text):
     #parameter: Array that has the answers in them
 
     #btn Creation
-    btnAnswer1 = pygame.draw.rect(screen,(100,250,50),(30,400,150,40))
+    btnAnswer1 = pygame.draw.rect(screen,(100,200,50),(30,410,150,30))
+    btnAnswer2 = pygame.draw.rect(screen,(100,200,50),(200,410,150,30))
+    btnAnswer3 = pygame.draw.rect(screen,(100,200,50),(30,450,150,30))
+    btnAnswer4 = pygame.draw.rect(screen,(100,200,50),(200,450,150,30))
     #txt Creation
     txtBtn1 = NormalFont.render(text[0],1,(0,0,0))
     txtBtn1rect = txtBtn1.get_rect()
-    txtBtn1rect.topleft = (32,400)
+    txtBtn1rect.topleft = (40,415)
+    txtBtn2 = NormalFont.render(text[1],1,(0,0,0))
+    txtBtn2rect = txtBtn2.get_rect()
+    txtBtn2rect.topleft = (210,415)
+    txtBtn3 = NormalFont.render(text[2],1,(0,0,0))
+    txtBtn3rect = txtBtn3.get_rect()
+    txtBtn3rect.topleft = (40,455)
+    txtBtn4 = NormalFont.render(text[3],1,(0,0,0))
+    txtBtn4rect = txtBtn4.get_rect()
+    txtBtn4rect.topleft = (210,455)
     screen.blit(txtBtn1,txtBtn1rect)
+    screen.blit(txtBtn2,txtBtn2rect)
+    screen.blit(txtBtn3,txtBtn3rect)
+    screen.blit(txtBtn4,txtBtn4rect)
 
 
 
