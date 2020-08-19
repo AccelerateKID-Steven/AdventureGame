@@ -105,9 +105,14 @@ def createText(text):
 #create buttons to click for answering questions
 def createAnswers(text):
     #parameter: Array that has the answers in them
-    #TODO: Create as many buttons as needed
-    #Create text on top of the buttons
-    #Be able to click the buttons
+
+    #btn Creation
+    btnAnswer1 = pygame.draw.rect(screen,(100,250,50),(30,400,150,40))
+    #txt Creation
+    txtBtn1 = NormalFont.render(text[0],1,(0,0,0))
+    txtBtn1rect = txtBtn1.get_rect()
+    txtBtn1rect.topleft = (32,400)
+    screen.blit(txtBtn1,txtBtn1rect)
 
 
 
@@ -145,6 +150,8 @@ def gameScreen():
                 createText(myText[1][clickCount])
                 #create a text box below the normal text
                 #just for the questions
+                responses = grabFile("questions")
+                createAnswers(responses)
 
                 questionCount = questionCount + 1
                 clickcounter = False
