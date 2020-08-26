@@ -36,6 +36,8 @@ txtStartrect.center = (80,200)
 mouseX, mouseY = pygame.mouse.get_pos()
 questionCount = 0
 NAME = ""
+
+
 currentQuestions = []
 
 pygame.display.update()
@@ -134,7 +136,7 @@ def gameScreen():
     questionCount = 0
     clickcounter = True
     responses = None
-    
+    global NAME
     while secondWhile == True:
         
         #makes the background black
@@ -170,10 +172,11 @@ def gameScreen():
                 clickcounter = False
         #if the category is sentence
         elif myText[0][clickCount]=="Sentence\n":
-                if(myText[1][clickCount].find("NAME") == 1):
+                if(myText[1][clickCount].find("NAME") == -1):
                     createText(myText[1][clickCount])
                 else:
-                 #   myText[1][clickCount].replace("NAME",NAME)
+                    
+                    myText[1][clickCount].replace("NAME",NAME)
                     createText(myText[1][clickCount])
                 
                 
@@ -185,7 +188,7 @@ def gameScreen():
             if click == True :
                 clickCount = clickCount + 1
         else:
-            #global NAME
+            
             if btnAnswer1.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuff
