@@ -38,6 +38,7 @@ btnAnswer4 = None
 #Other Field Variables
 mouseX, mouseY = pygame.mouse.get_pos()
 questionCount = 0
+NAME = None
 currentQuestions = []
 
 pygame.display.update()
@@ -104,6 +105,7 @@ def createAnswers(text):
     #parameter: Array that has the answers in them
 
     #btn Creation
+    global btnAnswer1,btnAnswer2,btnAnswer3,btnAnswer4
     btnAnswer1 = pygame.draw.rect(screen,(100,200,50),(30,410,150,30))
     btnAnswer2 = pygame.draw.rect(screen,(100,200,50),(200,410,150,30))
     btnAnswer3 = pygame.draw.rect(screen,(100,200,50),(30,450,150,30))
@@ -134,6 +136,9 @@ def gameScreen():
     click = False
     questionCount = 0
     clickcounter = True
+    responses = None
+    NAME = None
+    
     while secondWhile == True:
         
         #makes the background black
@@ -169,13 +174,35 @@ def gameScreen():
                 clickcounter = False
         #if the category is sentence
         elif myText[0][clickCount]=="Sentence\n":
+                if(myText[1][clickCount].find("NAME") == 1):
+                    myText[1][clickCount].replace("NAME",NAME)
                 createText(myText[1][clickCount])
-        
+                
+
+
         if clickcounter == True:
             
         #goes to the next index when you click
             if click == True :
                 clickCount = clickCount + 1
+        else:
+            if btnAnswer1.collidepoint((mouseX,mouseY)):
+                if click == True:
+                    #stuff
+                    NAME = responses[0]
+            elif btnAnswer2.collidepoint((mouseX,mouseY)):
+                if click == True:
+                    #stuff
+                    NAME = responses[1]
+            elif btnAnswer3.collidepoint((mouseX,mouseY)):
+                if click == True:
+                    #stuf
+                    NAME = responses[2]
+            elif btnAnswer4.collidepoint((mouseX,mouseY)):
+                if click == True:
+                    #stuff
+                    NAME = responses[3]
+
 
 
         #Where to stop code for gameplay

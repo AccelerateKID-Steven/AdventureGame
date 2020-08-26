@@ -6,8 +6,8 @@ Sentence
 I am your spirit guide.
 Question
 First of all, what is your name?
-Question
-Is Coding fun?
+Sentence
+Well, Hello there NAME!
 
 
 
