@@ -31,14 +31,11 @@ txtStart = NormalFont.render("Start",1,(0,0,0))
 txtStartrect = txtStart.get_rect()
 txtStartrect.center = (80,200)
 #Buttons for Answers
-btnAnswer1 = None
-btnAnswer2 = None
-btnAnswer3 = None
-btnAnswer4 = None 
+
 #Other Field Variables
 mouseX, mouseY = pygame.mouse.get_pos()
 questionCount = 0
-NAME = None
+NAME = ""
 currentQuestions = []
 
 pygame.display.update()
@@ -137,7 +134,6 @@ def gameScreen():
     questionCount = 0
     clickcounter = True
     responses = None
-    NAME = None
     
     while secondWhile == True:
         
@@ -175,8 +171,11 @@ def gameScreen():
         #if the category is sentence
         elif myText[0][clickCount]=="Sentence\n":
                 if(myText[1][clickCount].find("NAME") == 1):
-                    myText[1][clickCount].replace("NAME",NAME)
-                createText(myText[1][clickCount])
+                    createText(myText[1][clickCount])
+                else:
+                 #   myText[1][clickCount].replace("NAME",NAME)
+                    createText(myText[1][clickCount])
+                
                 
 
 
@@ -186,22 +185,32 @@ def gameScreen():
             if click == True :
                 clickCount = clickCount + 1
         else:
+            #global NAME
             if btnAnswer1.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuff
                     NAME = responses[0]
+                    clickcounter = True
+                    clickCount = clickCount + 1
             elif btnAnswer2.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuff
                     NAME = responses[1]
+                    clickcounter = True
+                    clickCount = clickCount + 1
             elif btnAnswer3.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuf
                     NAME = responses[2]
+                    clickcounter = True
+                    clickCount = clickCount + 1
             elif btnAnswer4.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuff
                     NAME = responses[3]
+                    clickcounter = True
+                    clickCount = clickCount + 1
+            
 
 
 
