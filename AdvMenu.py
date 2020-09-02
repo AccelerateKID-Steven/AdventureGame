@@ -35,7 +35,12 @@ txtStartrect.center = (80,200)
 #Other Field Variables
 mouseX, mouseY = pygame.mouse.get_pos()
 questionCount = 0
-NAME = ""
+userDictionary = {
+    "name": "",
+    "class": ""
+
+}
+
 
 
 currentQuestions = []
@@ -97,7 +102,9 @@ def createText(text):
     txtBox = NormalFont.render(text,1,(0,0,0))
     txtBoxrect = txtBox.get_rect()
     txtBoxrect.topleft = (20,390)
+    #TODO:Wrap text?
     screen.blit(txtBox,txtBoxrect)
+    
 
 #create buttons to click for answering questions
 def createAnswers(text):
@@ -127,7 +134,18 @@ def createAnswers(text):
     screen.blit(txtBtn3,txtBtn3rect)
     screen.blit(txtBtn4,txtBtn4rect)
 
-
+def grabKey(currentAnswer):
+    global questionCount
+    #function will grab the key, set value
+    #ONLY IF WE CLICK THE BUTTON
+    count = 0
+    for x in userDictionary.keys():
+        if count == questionCount:
+                    
+            userDictionary[x] = currentAnswer
+        else:
+            count = count + 1
+    questionCount = questionCount + 1
 
 def gameScreen():
     secondWhile = True
@@ -136,7 +154,7 @@ def gameScreen():
     questionCount = 0
     clickcounter = True
     responses = None
-    global NAME
+    global userDictionary
     while secondWhile == True:
         
         #makes the background black
@@ -168,7 +186,7 @@ def gameScreen():
                 responses = grabFile("questions")
                 createAnswers(responses)
 
-                questionCount = questionCount + 1
+                
                 clickcounter = False
         #if the category is sentence
         elif myText[0][clickCount]=="Sentence\n":
@@ -176,7 +194,14 @@ def gameScreen():
                     createText(myText[1][clickCount])
                 else:
                     
-                    myText[1][clickCount].replace("NAME",NAME)
+                    myText[1][clickCount] = myText[1][clickCount].replace("NAME",userDictionary["name"])
+                    createText(myText[1][clickCount])
+                    
+                if(myText[1][clickCount].find("CLASS") == -1):
+                    createText(myText[1][clickCount])
+                else:
+                    
+                    myText[1][clickCount] = myText[1][clickCount].replace("CLASS",userDictionary["class"])
                     createText(myText[1][clickCount])
                 
                 
@@ -189,30 +214,36 @@ def gameScreen():
                 clickCount = clickCount + 1
         else:
             
+            currentAnswer = ""
             if btnAnswer1.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuff
-                    NAME = responses[0]
+                    currentAnswer = responses[0]
                     clickcounter = True
                     clickCount = clickCount + 1
+                    grabKey(currentAnswer)
             elif btnAnswer2.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuff
-                    NAME = responses[1]
+                    currentAnswer = responses[1]
                     clickcounter = True
                     clickCount = clickCount + 1
+                    grabKey(currentAnswer)
             elif btnAnswer3.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuf
-                    NAME = responses[2]
+                    currentAnswer = responses[2]
                     clickcounter = True
                     clickCount = clickCount + 1
+                    grabKey(currentAnswer)
             elif btnAnswer4.collidepoint((mouseX,mouseY)):
                 if click == True:
                     #stuff
-                    NAME = responses[3]
+                    currentAnswer = responses[3]
                     clickcounter = True
                     clickCount = clickCount + 1
+                    grabKey(currentAnswer)
+           
             
 
 
