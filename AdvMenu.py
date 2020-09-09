@@ -35,6 +35,7 @@ txtStartrect.center = (80,200)
 #Other Field Variables
 mouseX, mouseY = pygame.mouse.get_pos()
 questionCount = 0
+#add more items in here for the game to remember
 userDictionary = {
     "name": "",
     "class": ""
@@ -69,7 +70,6 @@ def grabFile(fileName):
         textArray = [tempArray1,tempArray2]
     elif fileName == "questions":
         #local variable
-        #TODO: changeing Delimiters to a comma
         tempString = dialogue.readlines()
         currentAnswers = tempString[questionCount]
         
@@ -155,16 +155,36 @@ def gameScreen():
     clickcounter = True
     responses = None
     global userDictionary
+    character = "transparent.jpg"
+    background = "fluffy-clouds.jpg"
     while secondWhile == True:
         
         #makes the background black
         screen.fill((0,0,0))
         
+        #For Changing Backgrounds
+        if(clickCount == 3):
+            background = "sunrise.jpg"
+
+        
         myImage = pygame.transform.smoothscale(
-            pygame.image.load(imageDirectory + "\\fluffy-clouds.jpg")
+            pygame.image.load(imageDirectory + "\\" + background)
             ,(500,376)
         )
         screen.blit(myImage,(0,0))         #   x y    width height
+        
+        #For Adding Items/Characters on screen
+        if(clickCount == 4):
+            character = "BajaBlast.jpg"
+            myCharacter = pygame.transform.smoothscale(
+            pygame.image.load(imageDirectory + "\\" + character)
+            ,(500,376)
+            )
+            screen.blit(myCharacter,(0,0))   
+        
+
+         
+        #This is the bar at the bottom of the game
         pygame.draw.rect(screen,(255,255,255),(0,375,500,125),0)
         pygame.draw.rect(screen,(135,179,120),(20,390,460,95),0)
         
@@ -178,33 +198,38 @@ def gameScreen():
         #    createText(myText[1][clickCount])
 
         #If the category is question
-        if myText[0][clickCount]=="Question\n":
+        try:
+            if myText[0][clickCount]=="Question\n":
 
-                createText(myText[1][clickCount])
-                #create a text box below the normal text
-                #just for the questions
-                responses = grabFile("questions")
-                createAnswers(responses)
+                    createText(myText[1][clickCount])
+                    #create a text box below the normal text
+                    #just for the questions
+                    responses = grabFile("questions")
+                    createAnswers(responses)
 
                 
-                clickcounter = False
-        #if the category is sentence
-        elif myText[0][clickCount]=="Sentence\n":
-                if(myText[1][clickCount].find("NAME") == -1):
-                    createText(myText[1][clickCount])
-                else:
+                    clickcounter = False
+            #if the category is sentence
+            elif myText[0][clickCount]=="Sentence\n":
+                #Add an If/Else for every item you need to use/replace in text
+                    if(myText[1][clickCount].find("NAME") == -1):
+                        createText(myText[1][clickCount])
+                    else:
                     
-                    myText[1][clickCount] = myText[1][clickCount].replace("NAME",userDictionary["name"])
-                    createText(myText[1][clickCount])
+                        myText[1][clickCount] = myText[1][clickCount].replace("NAME",userDictionary["name"])
+                        createText(myText[1][clickCount])
                     
-                if(myText[1][clickCount].find("CLASS") == -1):
-                    createText(myText[1][clickCount])
-                else:
+                    if(myText[1][clickCount].find("CLASS") == -1):
+                        createText(myText[1][clickCount])
+                    else:
                     
-                    myText[1][clickCount] = myText[1][clickCount].replace("CLASS",userDictionary["class"])
-                    createText(myText[1][clickCount])
-                
-                
+                        myText[1][clickCount] = myText[1][clickCount].replace("CLASS",userDictionary["class"])
+                        createText(myText[1][clickCount])
+        except IndexError:
+            #Display message that game is over,
+            #Set clickcounter to false
+            createText("Game has ended, please exit the application!")
+            clickcounter = False
 
 
         if clickcounter == True:
