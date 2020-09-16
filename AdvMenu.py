@@ -35,16 +35,19 @@ txtStartrect.center = (80,200)
 #Other Field Variables
 mouseX, mouseY = pygame.mouse.get_pos()
 questionCount = 0
+
+#IF YOU'RE NAME AND CLASS VARIABLES ARN'T WORKING,
+#THIS IS THE THIRD SPOT TO LOOK AT!
 #add more items in here for the game to remember
 userDictionary = {
     "name": "",
     "class": ""
 
 }
-
-
-
 currentQuestions = []
+
+
+
 
 pygame.display.update()
 
@@ -134,17 +137,22 @@ def createAnswers(text):
     screen.blit(txtBtn3,txtBtn3rect)
     screen.blit(txtBtn4,txtBtn4rect)
 
+#IF YOU'RE NAME AND CLASS VARIABLES ARN'T WORKING,
+#THIS IS THE SECOND SPOT TO LOOK AT!
 def grabKey(currentAnswer):
     global questionCount
     #function will grab the key, set value
     #ONLY IF WE CLICK THE BUTTON
+    #Count is the count of how many times the for loop runs
     count = 0
     for x in userDictionary.keys():
+        #if the cound is equal to the question count(which is equal to the number of questions already asked)
         if count == questionCount:
                     
             userDictionary[x] = currentAnswer
         else:
             count = count + 1
+    #increase question count for the next question
     questionCount = questionCount + 1
 
 def gameScreen():
@@ -212,10 +220,14 @@ def gameScreen():
             #if the category is sentence
             elif myText[0][clickCount]=="Sentence\n":
                 #Add an If/Else for every item you need to use/replace in text
+
+                #IF YOU'RE NAME AND CLASS VARIABLES ARN'T WORKING,
+                #THIS IS THE FIRST SPOT TO LOOK AT!
+                    #This says if there is no NAME in the sentence, to just display it
                     if(myText[1][clickCount].find("NAME") == -1):
                         createText(myText[1][clickCount])
                     else:
-                    
+                        #If there is a NAME in the sentence, replace NAME with the 'name' key
                         myText[1][clickCount] = myText[1][clickCount].replace("NAME",userDictionary["name"])
                         createText(myText[1][clickCount])
                     
@@ -237,6 +249,7 @@ def gameScreen():
         #goes to the next index when you click
             if click == True :
                 clickCount = clickCount + 1
+        #if clickcount == false
         else:
             
             currentAnswer = ""
@@ -310,7 +323,7 @@ def titleScreen():
     firstWhile = True
     while firstWhile == True:
 
-        #TODO: make some epic backgrounds
+        
         titleImage = pygame.image.load(imageDirectory + "\\titleScreenBackground.jpg")
         screen.blit(titleImage,(0,0))
         

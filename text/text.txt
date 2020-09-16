@@ -9,8 +9,9 @@ First of all, what is your name?
 Sentence
 Well, Hello there NAME!
 Question
-What class are you?
+What class are you NAME?
 Sentence
 Oh, So you are a CLASS?
+
 
 
